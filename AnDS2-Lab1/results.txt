@@ -1,0 +1,28 @@
+Testing unionSet:
+1 2 3 4 5
+Testing symmetricDifference:
+1 2 4 5
+IntSet - Number of elements: 1000
+IntSet - Fill time: 0.000404897 seconds
+IntSet - Search time: 0.000200794 seconds
+IntSet - Modification time (addition and deletion): 0.00117904 seconds
+IntSet - Number of elements: 10000
+IntSet - Fill time: 0.00593025 seconds
+IntSet - Search time: 0.000254632 seconds
+IntSet - Modification time (addition and deletion): 0.00111009 seconds
+IntSet - Number of elements: 100000
+IntSet - Fill time: 0.106235 seconds
+IntSet - Search time: 0.000525961 seconds
+IntSet - Modification time (addition and deletion): 0.00157925 seconds
+std::vector<int> - Number of elements: 1000
+std::vector<int> - Fill time: 8.2075e-05 seconds
+std::vector<int> - Search time: 0.00112767 seconds
+std::vector<int> - Modification time (addition and deletion): 0.00166384 seconds
+std::vector<int> - Number of elements: 10000
+std::vector<int> - Fill time: 0.00070425 seconds
+std::vector<int> - Search time: 0.00855316 seconds
+std::vector<int> - Modification time (addition and deletion): 0.00917027 seconds
+std::vector<int> - Number of elements: 100000
+std::vector<int> - Fill time: 0.00677787 seconds
+std::vector<int> - Search time: 0.0767604 seconds
+std::vector<int> - Modification time (addition and deletion): 0.0774708 seconds
