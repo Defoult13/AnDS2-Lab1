@@ -158,3 +158,17 @@ private:
         }
     }
 };
+
+// Функция для вычисления объединения двух множеств
+IntSet unionSet(const IntSet& set1, const IntSet& set2) {
+    IntSet result = set1; // Копируем set1
+
+    // Добавляем элементы из set2, которых нет в result
+    for (int i = 0; i <= 100; ++i) {
+        if (!result.contains(i) && set2.contains(i))
+            result.insert(i);
+    }
+
+    return result;
+}
+
