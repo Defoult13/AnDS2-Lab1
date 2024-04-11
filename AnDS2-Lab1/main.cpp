@@ -191,3 +191,167 @@ IntSet symmetricDifference(const IntSet& set1, const IntSet& set2) {
     return result;
 }
 
+// Функция для тестирования времени заполнения, поиска, добавления и удаления для заданного количества элементов для IntSet
+void testIntSetPerformance(int numElements) {
+    double totalFillTime = 0.0;
+    for (int attempt = 0; attempt < 100; ++attempt) {
+        IntSet set;
+        auto start = std::chrono::high_resolution_clock::now();
+        for (int i = 0; i < numElements; ++i) {
+            int num = lcg();
+            set.insert(num);
+        }
+        auto end = std::chrono::high_resolution_clock::now();
+        std::chrono::duration<double> fillTime = end - start;
+        totalFillTime += fillTime.count();
+    }
+    double averageFillTime = totalFillTime / 100.0;
+
+    double totalSearchTime = 0.0;
+    double totalModifyTime = 0.0;
+    for (int attempt = 0; attempt < 1000; ++attempt) {
+        IntSet set;
+        for (int i = 0; i < numElements; ++i) {
+            int num = lcg();
+            set.insert(num);
+        }
+
+        // Поиск в IntSet
+        auto start = std::chrono::high_resolution_clock::now();
+        for (int i = 0; i < 1000; ++i) {
+            int num = lcg();
+            set.contains(num);
+        }
+        auto end = std::chrono::high_resolution_clock::now();
+        std::chrono::duration<double> searchTime = end - start;
+        totalSearchTime += searchTime.count();
+
+        // Добавление и удаление в IntSet
+        start = std::chrono::high_resolution_clock::now();
+        for (int i = 0; i < 1000; ++i) {
+            int num = lcg();
+            set.insert(num);
+            set.erase(num);
+        }
+        end = std::chrono::high_resolution_clock::now();
+        std::chrono::duration<double> modifyTime = end - start;
+        totalModifyTime += modifyTime.count();
+    }
+    double averageSearchTime = totalSearchTime / 1000.0;
+    double averageModifyTime = totalModifyTime / 1000.0;
+
+    std::cout << "IntSet - Number of elements: " << numElements << std::endl;
+    std::cout << "IntSet - Fill time: " << averageFillTime << " seconds" << std::endl;
+    std::cout << "IntSet - Search time: " << averageSearchTime << " seconds" << std::endl;
+    std::cout << "IntSet - Modification time (addition and deletion): " << averageModifyTime << " seconds" << std::endl;
+}
+
+// Функция для тестирования времени заполнения, поиска, добавления и удаления для заданного количества элементов для std::vector<int>
+void testVectorPerformance(int numElements) {
+    double totalFillTime = 0.0;
+    for (int attempt = 0; attempt < 100; ++attempt) {
+        std::vector<int> vec;
+        auto start = std::chrono::high_resolution_clock::now();
+        for (int i = 0; i < numElements; ++i) {
+            int num = lcg();
+            vec.push_back(num);
+        }
+        auto end = std::chrono::high_resolution_clock::now();
+        std::chrono::duration<double> fillTime = end - start;
+        totalFillTime += fillTime.count();
+    }
+    double averageFillTime = totalFillTime / 100.0;
+
+    double totalSearchTime = 0.0;
+    double totalModifyTime = 0.0;
+    for (int attempt = 0; attempt < 1000; ++attempt) {
+        std::vector<int> vec;
+        for (int i = 0; i < numElements; ++i) {
+            int num = lcg();
+            vec.push_back(num);
+        }
+
+        // Поиск в std::vector<int>
+        auto start = std::chrono::high_resolution_clock::now();
+        for (int i = 0; i < 1000; ++i) {
+            int num = lcg();
+            std::find(vec.begin(), vec.end(), num);
+        }
+        auto end = std::chrono::high_resolution_clock::now();
+        std::chrono::duration<double> searchTime = end - start;
+        totalSearchTime += searchTime.count();
+
+        // Добавление и удаление в std::vector<int>
+        start = std::chrono::high_resolution_clock::now();
+        for (int i = 0; i < 1000; ++i) {
+            int num = lcg();
+            vec.push_back(num);
+            vec.erase(std::remove(vec.begin(), vec.end(), num), vec.end());
+        }
+        end = std::chrono::high_resolution_clock::now();
+        std::chrono::duration<double> modifyTime = end - start;
+        totalModifyTime += modifyTime.count();
+    }
+    double averageSearchTime = totalSearchTime / 1000.0;
+    double averageModifyTime = totalModifyTime / 1000.0;
+
+    std::cout << "std::vector<int> - Number of elements: " << numElements << std::endl;
+    std::cout << "std::vector<int> - Fill time: " << averageFillTime << " seconds" << std::endl;
+    std::cout << "std::vector<int> - Search time: " << averageSearchTime << " seconds" << std::endl;
+    std::cout << "std::vector<int> - Modification time (addition and deletion): " << averageModifyTime << " seconds" << std::endl;
+}
+
+// Функция для тестирования функции объединения множеств
+void testUnionSet() {
+    IntSet set1;
+    IntSet set2;
+
+    set1.insert(1);
+    set1.insert(2);
+    set1.insert(3);
+
+    set2.insert(3);
+    set2.insert(4);
+    set2.insert(5);
+
+    IntSet resultSet = unionSet(set1, set2);
+    resultSet.print(); // Ожидаемый результат: 1 2 3 4 5
+}
+
+// Функция для тестирования функции симметрической разности множеств
+void testSymmetricDifference() {
+    IntSet set1;
+    IntSet set2;
+
+    set1.insert(1);
+    set1.insert(2);
+    set1.insert(3);
+
+    set2.insert(3);
+    set2.insert(4);
+    set2.insert(5);
+
+    IntSet resultSet = symmetricDifference(set1, set2);
+    resultSet.print(); // Ожидаемый результат: 1 2 4 5
+}
+
+int main() {
+    // Проверка функции объединения множеств
+    std::cout << "Testing unionSet:" << std::endl;
+    testUnionSet();
+
+    // Проверка функции симметрической разности множеств
+    std::cout << "Testing symmetricDifference:" << std::endl;
+    testSymmetricDifference();
+
+    // Тестирование производительности для разных размеров контейнера
+    testIntSetPerformance(1000);
+    testIntSetPerformance(10000);
+    testIntSetPerformance(100000);
+
+    testVectorPerformance(1000);
+    testVectorPerformance(10000);
+    testVectorPerformance(100000);
+
+    return 0;
+}
