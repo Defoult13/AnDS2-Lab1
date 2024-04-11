@@ -172,3 +172,22 @@ IntSet unionSet(const IntSet& set1, const IntSet& set2) {
     return result;
 }
 
+// Функция для вычисления симметрической разности двух множеств
+IntSet symmetricDifference(const IntSet& set1, const IntSet& set2) {
+    IntSet result;
+
+    // Проверяем каждый элемент из set1
+    for (int i = 0; i <= 100; ++i) {
+        if (set1.contains(i) && !set2.contains(i))
+            result.insert(i);
+    }
+
+    // Проверяем каждый элемент из set2
+    for (int i = 0; i <= 100; ++i) {
+        if (set2.contains(i) && !set1.contains(i))
+            result.insert(i);
+    }
+
+    return result;
+}
+
